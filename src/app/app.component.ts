@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NxWelcomeComponent } from './nx-welcome.component';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
@@ -13,4 +13,9 @@ import { FormsModule } from '@angular/forms';
 export class AppComponent {
   bind = 'bind';
   title = 'nx-angular';
+
+  constructor() {
+    console.log('AppComponent');
+  }
+
 }
