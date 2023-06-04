@@ -1,1 +1,6 @@
-<nx-angular-nx-welcome></nx-angular-nx-welcome> <router-outlet></router-outlet>
+<h1>{{title}}</h1>
+<input type="text" [(ngModel)]="bind">
+<div>
+    {{bind}}
+</div>
+<router-outlet></router-outlet>
