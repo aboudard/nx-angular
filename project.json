@@ -10,7 +10,7 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/nx-angular",
+        "outputPath": "dist/nx-angular/browser",
         "index": "./src/index.html",
         "main": "./src/main.ts",
         "polyfills": ["zone.js"],
@@ -90,6 +90,59 @@
       "options": {
         "buildTarget": "nx-angular:build"
       }
+    },
+    "server": {
+      "dependsOn": ["build"],
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/nx-angular/server",
+        "main": "server.ts",
+        "tsConfig": "tsconfig.server.json"
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "nx-angular:build:development",
+          "serverTarget": "nx-angular:server:development"
+        },
+        "production": {
+          "browserTarget": "nx-angular:build:production",
+          "serverTarget": "nx-angular:server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "prerender": {
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": ["/"]
+      },
+      "configurations": {
+        "development": {
+          "browserTarget": "nx-angular:build:development",
+          "serverTarget": "nx-angular:server:development"
+        },
+        "production": {
+          "browserTarget": "nx-angular:build:production",
+          "serverTarget": "nx-angular:server:production"
+        }
+      },
+      "defaultConfiguration": "production"
     }
   }
 }
